@@ -14,14 +14,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if the user exists in the database
     $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->execute(['username' => $user->getUsername()]);
-    $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($existingUser) {
+    if ($user) {
         // Use the plaintext password and the stored hashed password to verify
-        if ($user->verifyPassword($existingUser['password'])) {
+        if ($user && password_verify($password,$user['password'])) {
             // User exists and password is correct
-            $_SESSION['user_id'] = $existingUser['id'];  
-            $_SESSION['username'] = $existingUser['username'];  
+            $_SESSION['id'] = $user['id'];  
+            $_SESSION['username'] = $user['username'];  
             
             echo "Login successful!";
             header("Location: index.php");
