@@ -13,14 +13,25 @@ if(!isset($_SESSION['id'])){
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = htmlspecialchars($_POST['title']);
     $body = $_POST['body'];
-    $image_data = file_get_contents($_FILES['image']['tmp_name']);
 
-    $post = new Post($_SESSION['id'], $title, $body, $image_data);
-    $post->setId($id);
-    $post->setUserId($user_id);
+    if (empty($title) || empty($body)) {
+        echo "Title and body are required!";
+        exit; 
+    }
+
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $image_data = file_get_contents($_FILES['image']['tmp_name']);
+    } else {
+        $image_data = NULL; // No image uploaded, set to NULL
+    }
+
+    $post = new Post();
+    $post->setUserId($_SESSION['id']);
     $post->setTitle($title);
     $post->setBody($body);
-    $post->setImageData($image_data);
+    if ($image_data !== NULL) {
+        $post->setImageData($image_data);
+    }
     
     if($post->save()){
         echo "Post created successfully!";
@@ -42,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <h1>Create a New Post</h1>
 
     <!-- Post creation form -->
-    <form action="create.php" method="POST" enctype="multipart/form-data">
+    <form action="createpost.php" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title" required><br><br>
 

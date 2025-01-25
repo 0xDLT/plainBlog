@@ -57,13 +57,19 @@ class Post{
 
     public function save(){
         require 'database.php';
-        $stmt = $db->prepare("INSERT INTO posts (user_id, title, body, image_data) VALUES (:user_id, :title, :body, :image_data)");
-        $stmt->execute([
-            'user_id' => $this->getUserId(),
-            'title' => $this->getTitle(),
-            'body' => $this->getBody(),
-            'image_data' => $this->getImageData(),
-        ]);
+        try {
+            $stmt = $db->prepare("INSERT INTO posts (user_id, title, body, image_data) VALUES (:user_id, :title, :body, :image_data)");
+            $stmt->execute([
+                'user_id' => $this->getUserId(),
+                'title' => $this->getTitle(),
+                'body' => $this->getBody(),
+                'image_data' => $this->getImageData() ?? null,
+            ]);
+            return true; 
+        } catch (Exception $e) {
+            error_log("Error in saving post: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function delete(){
