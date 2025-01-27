@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'header.php';
 require_once 'users.class.php'; 
 require_once 'database.php';   
 

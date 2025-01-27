@@ -20,24 +20,17 @@
       <h1 class="text-xl font-bold text-gray-800">PlainBlog</h1>
     </div>
 
-    <!-- Right side - Avatar, Search, Recent, and Menu -->
+    <!-- Right side - Avatar, Recent, and Menu -->
     <div class="flex items-center space-x-4">
 
-      <!-- Search Icon -->
-      <button class="text-gray-600 hover:text-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18l6 6m-6-6a8 8 0 1115-8A8 8 0 0110 18z"></path>
-        </svg>
-      </button>
-
       <!-- Recent Posts Icon -->
-<a href="index.php" class="text-gray-600 hover:text-gray-800">
-  <button>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 6h14M5 18h14"></path>
-    </svg>
-  </button>
-</a>
+      <a href="index.php" class="text-gray-600 hover:text-gray-800">
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 6h14M5 18h14"></path>
+          </svg>
+        </button>
+      </a>
 
       <!-- Avatar with Dropdown Menu -->
       <div class="relative">
