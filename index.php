@@ -47,11 +47,11 @@
                     echo '<img src="data:image/jpeg;base64,' . base64_encode($post['image_data']) . '" class="my-4 w-64 h-64 object-cover">';
                 }                
                 
-                $timezone = new DateTimeZone('UTC');
+                 $timezone = new DateTimeZone('UTC');
                 $created_at = new DateTime($post['created_at'], $timezone);
                 $now = new DateTime('now', $timezone);
-                $interval = $created_at->diff($now); // Fix: Use $created_at->diff($now)
-                
+                $interval = $created_at->diff($now); 
+
                 if ($interval->y > 0) {
                     $time_ago = $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
                 } elseif ($interval->m > 0) {
