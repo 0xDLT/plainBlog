@@ -20,28 +20,27 @@
             $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($posts as $post) {
                 echo '<div class="border p-4">';
+                    echo '<div class="mb-4 flex items-center">';
+                        if ($post['avatar']) {
+                            echo '<img src="data:image/jpeg;base64,' . base64_encode($post['avatar']) . '" class="w-12 h-12 rounded-full mr-4">';
+                        } else {
+                            // Inline SVG as default avatar
+                            echo '<img src="data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#ccc" /><text x="24" y="24" font-size="18" text-anchor="middle" fill="white" dy=".3em">?</text></svg>') . '" class="w-12 h-12 rounded-full mr-4">';
+                        }
+                        echo '<div>';
+                        echo '<p class="text-xl font-bold">' . $post['username'] . '</p>';
+                        echo '</div>';
+                    echo '</div>'; 
                 
-                echo '<div class="mb-4 flex items-center">';
                 
-                if ($post['avatar']) {
-                    echo '<img src="data:image/jpeg;base64,' . base64_encode($post['avatar']) . '" class="w-12 h-12 rounded-full mr-4">';
-                } else {
-                    // Inline SVG as default avatar
-                    echo '<img src="data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#ccc" /><text x="24" y="24" font-size="18" text-anchor="middle" fill="white" dy=".3em">?</text></svg>') . '" class="w-12 h-12 rounded-full mr-4">';
-                }
-
-                echo '<div>';
-                echo '<p class="text-xl font-bold">' . $post['username'] . '</p>';
+                    echo '<h2 class="text-2xl font-bold mb-2">' . $post['title'] . '</h2>';
+                    echo '<p class="mt-2">' . $post['body'] . '</p>';
+                    if (!empty($post['image_data'])) {
+                        echo '<img src="data:image/jpeg;base64,' . base64_encode($post['image_data']) . '" class="my-4 w-64 h-64 object-cover">';
+                    }                
+                    
+                    echo '<p class="text-sm text-gray-500 mt-4">' . date('F j, Y, g:i a', strtotime($post['created_at'])) . '</p>';
                 echo '</div>';
-                echo '</div>'; 
-                
-                echo '<h2 class="text-2xl font-bold mb-2">' . $post['title'] . '</h2>';
-                echo '<p class="mt-2">' . $post['body'] . '</p>';
-                if (!empty($post['image_data'])) {
-                    echo '<img src="data:image/jpeg;base64,' . base64_encode($post['image_data']) . '" class="my-4 w-64 h-64 object-cover">';
-                }                
-                
-                echo '<p class="text-sm text-gray-500 mt-4">' . date('F j, Y, g:i a', strtotime($post['created_at'])) . '</p>';
             }
             ?>
         </div>
