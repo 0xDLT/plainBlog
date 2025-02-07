@@ -21,14 +21,16 @@
             foreach ($posts as $post) {
                 echo '<div class="border p-4">';
                     echo '<div class="mb-4 flex items-center">';
-                        if ($post['avatar']) {
-                            echo '<img src="data:image/jpeg;base64,' . base64_encode($post['avatar']) . '" class="w-12 h-12 rounded-full mr-4">';
-                        } else {
-                            // Inline SVG as default avatar
-                            echo '<img src="data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#ccc" /><text x="24" y="24" font-size="18" text-anchor="middle" fill="white" dy=".3em">?</text></svg>') . '" class="w-12 h-12 rounded-full mr-4">';
-                        }
+                        echo '<a href="profile.php?id=' . $post['user_id'] . '">';
+                            if ($post['avatar']) {
+                                echo '<img src="data:image/jpeg;base64,' . base64_encode($post['avatar']) . '" class="w-12 h-12 rounded-full mr-4">';
+                            } else {
+                                // Inline SVG as default avatar
+                                echo '<img src="data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#ccc" /><text x="24" y="24" font-size="18" text-anchor="middle" fill="white" dy=".3em">?</text></svg>') . '" class="w-12 h-12 rounded-full mr-4">';
+                            }
+                        echo '</a>';
                         echo '<div>';
-                        echo '<p class="text-xl font-bold">' . $post['username'] . '</p>';
+                            echo '<a href="profile.php?id=' . $post['user_id'] . '" class="text-xl font-bold">' . $post['username'] . '</a>';
                         echo '</div>';
                     echo '</div>'; 
                 
