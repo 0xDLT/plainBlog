@@ -1,4 +1,5 @@
-<?php include 'header.php';?>
+<?php include 'header.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +17,7 @@
             require_once 'database.php';
             require_once 'posts.class.php';
             require_once 'users.class.php';
+
             $stmt = $db->query("SELECT posts.*, users.username, posts.image_data, users.avatar, posts.created_at FROM posts JOIN users ON posts.user_id = users.id");
             $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($posts as $post) {

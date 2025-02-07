@@ -2,12 +2,15 @@
 require_once 'database.php'; 
 require_once 'users.class.php';
 
-$userId = $_SESSION['id'] ?? null;
-if ($userId) {
-  $stmt = $db->prepare('SELECT avatar FROM users WHERE id = ?');
-  $stmt->execute([$userId]);
-  $user = $stmt->fetch(PDO::FETCH_ASSOC);
-}
+            session_start();
+            $id = $_SESSION['id'];
+            $stmt = $db->prepare("SELECT avatar FROM users WHERE id = :id");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            $avatar = base64_encode($user['avatar']);;
+            
+            print_r($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +52,7 @@ if ($userId) {
         <button onclick="toggleMenu()" class="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-300">
             <?php
             if (!empty($user['avatar'])) {
-                echo '<img src="' . htmlspecialchars($user['avatar']) . '" alt="User Avatar" class="w-full h-full object-cover">';
+              echo '<img src="data:image/jpeg;base64,' . $avatar . ' "alt="User Avatar" class="w-full h-full object-cover">';
             } else {
                 // Fallback to default avatar if no user avatar exists
                 echo '<img src="data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#ccc" /><text x="24" y="24" font-size="18" text-anchor="middle" fill="white" dy=".3em">?</text></svg>') . '" class="w-12 h-12 rounded-full mr-4">';
